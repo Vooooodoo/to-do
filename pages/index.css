@@ -90,6 +90,10 @@
   font-size: 25px;
 }
 
+.to-do-item__text_type_complete {
+  text-decoration: line-through;
+}
+
 .to-do-item__button {
   width: 50px;
   height: 50px;
@@ -101,6 +105,14 @@
   transition: .2s linear;
   text-transform: uppercase;
   font-size: 30px;
+}
+
+.to-do-item__button_type_complete {
+  background-color: #14af42;
+}
+
+.to-do-item__button_type_delete {
+  background-color: #af1045;
 }
 
 .to-do-item__button:hover {
