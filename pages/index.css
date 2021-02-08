@@ -56,9 +56,56 @@
   opacity: .8;
 }
 
-.footer {
+.to-do {
   max-width: 500px;
   margin: 0 auto;
+}
+
+.to-do__list {
+  padding: 0;
+  list-style: none;
+  margin: 0 0 10px;
+}
+
+.to-do-item {
+  max-width: 348px;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+
+.to-do-item__text {
+  color: black;
+  min-height: 50px;
+  width: 240px;
+  background-color: white;
+  border-radius: 5px;
+  margin: 0;
+  padding: 10px;
+  box-sizing: border-box;
+  font-size: 25px;
+}
+
+.to-do-item__button {
+  width: 50px;
+  height: 50px;
+  border: none;
+  padding: 1px 0 0 ;
+  margin: 0;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: .2s linear;
+  text-transform: uppercase;
+  font-size: 30px;
+}
+
+.to-do-item__button:hover {
+  opacity: .8;
+}
+
+.footer {
+  max-width: 500px;
+  margin: 30px auto 0;
 }
 
 .footer__title {
