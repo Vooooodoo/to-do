@@ -71,7 +71,11 @@
   max-width: 348px;
   display: flex;
   justify-content: space-between;
-  margin: 0 auto;
+  margin: 0 auto 10px;
+}
+
+.to-do-item:last-of-type {
+  margin-bottom: 0;
 }
 
 .to-do-item__text {
