@@ -8,12 +8,14 @@ function addToDoItem() {
   // создадим пустого клона элемента to-do-item внутри шаблона
   const toDoItem = toDoItemTemplate.querySelector('.to-do-item').cloneNode(true);
   const toDoText = toDoItem.querySelector('.to-do-item__text');      
+  
+  if (input.value) {
+    toDoText.textContent = input.value;
     
-  toDoText.textContent = input.value;
+    toDoList.append(toDoItem);
     
-  toDoList.append(toDoItem);
-    
-  input.value = '';
+    input.value = '';    
+  }
 }
 
 function deleteToDoItem(evt) {
