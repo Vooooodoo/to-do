@@ -1,7 +1,5 @@
 @import url(../vendor/normalize.css);
 @import url(../vendor/fonts/fonts.css);
-@import url(../blocks/page/page.css);
-@import url(../blocks/root/root.css);
 
 .page {
   background-color: #2A2C2F;
@@ -28,7 +26,7 @@
   display: flex;
   max-width: 500px;
   margin: 0 auto 30px;
-  height: 50px;
+  min-height: 50px;
   justify-content: center;
 }
 
@@ -38,7 +36,6 @@
   border: none;  
   border-radius: 5px;
   padding: 0 10px;
-  line-height: 0;
 }
 
 .form__button {
@@ -143,5 +140,13 @@
 @media all and (max-width: 424px) {
   .form__input {    
     width: 170px;
+  }
+  
+  .to-do-item {
+    max-width: 298px;
+  }
+
+  .to-do-item__text {
+    width: 190px;
   }
 }

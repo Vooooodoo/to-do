@@ -7,7 +7,7 @@ function addToDoItem() {
   const toDoItemTemplate = document.querySelector('#to-do-item-template').content;
   // создадим пустого клона элемента to-do-item внутри шаблона
   const toDoItem = toDoItemTemplate.querySelector('.to-do-item').cloneNode(true);
-  const toDoText = toDoItem.querySelector('.to-do-item__text');      
+  const toDoText = toDoItem.querySelector('.to-do-item__text');
   
   if (input.value) {
     toDoText.textContent = input.value;
@@ -16,6 +16,12 @@ function addToDoItem() {
     
     input.value = '';    
   }
+}
+
+function handleEnter(evt) {  
+  if (evt.key === 'Enter') {
+    addToDoItem();
+  }  
 }
 
 function deleteToDoItem(evt) {
@@ -33,3 +39,5 @@ function completeToDoItem(evt) {
 addButton.addEventListener('click', addToDoItem);
 document.addEventListener('click', deleteToDoItem);
 document.addEventListener('click', completeToDoItem);
+document.addEventListener('keydown', handleEnter);
+document.addEventListener('submit', evt => evt.preventDefault());
