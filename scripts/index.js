@@ -7,10 +7,8 @@ function createId() {
   return Date.now();
 }
 
-function addToDoItem(value, id) {
-  // найдём шаблон to-do-item-template
-  const toDoItemTemplate = document.querySelector('#to-do-item-template').content;
-  // создадим пустого клона элемента to-do-item внутри шаблона
+function addToDoItem(value, id) {  
+  const toDoItemTemplate = document.querySelector('#to-do-item-template').content;  
   const toDoItem = toDoItemTemplate.querySelector('.to-do-item').cloneNode(true);
   const toDoText = toDoItem.querySelector('.to-do-item__text');
   
@@ -50,18 +48,39 @@ function handleAddBtn() {
 
 function deleteToDoItem(evt) {
   if (evt.target.classList.contains('to-do-item__button_type_delete')) {
-    evt.target.parentNode.remove();
+    const toDoItem = evt.target.parentNode;
+
+    toDoItemsArr.forEach((item, index, arr) => {
+      if (Number(toDoItem.id) === item.id) {
+        arr.splice(index, 1);                
+      }
+    });
+    
+    toDoItem.remove();
+    localStorage.setItem('to-do-items', JSON.stringify(toDoItemsArr));
   }
 }
 
 function completeToDoItem(evt) {
+  const toDoItem = evt.target.parentNode;
+
   if (evt.target.classList.contains('to-do-item__button_type_complete')) {        
     evt.target.previousElementSibling.classList.toggle('to-do-item__text_type_complete');
   }
+
+  toDoItemsArr.forEach(item => {
+    if (Number(toDoItem.id) === item.id) {
+      item.complete = true;                
+    }
+  });
+
+  console.log(toDoItemsArr);
 }
 
 function renderToDoItems() {
-  toDoItemsArr.forEach(item => addToDoItem(item.value, item.id));
+  toDoItemsArr.forEach(item => {
+    addToDoItem(item.value, item.id);
+  });
 }
 
 addBtn.addEventListener('click', handleAddBtn);
