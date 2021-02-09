@@ -7,19 +7,27 @@ function createId() {
   return Date.now();
 }
 
-function addToDoItem(value, id) {  
+function addToDoItem(value, id, complete) {  
   const toDoItemTemplate = document.querySelector('#to-do-item-template').content;  
   const toDoItem = toDoItemTemplate.querySelector('.to-do-item').cloneNode(true);
   const toDoText = toDoItem.querySelector('.to-do-item__text');
   
   toDoItem.id = id;
   toDoText.textContent = value;    
-  toDoList.prepend(toDoItem);    
+  toDoList.prepend(toDoItem);
+  
+  if (complete) {
+    toDoText.classList.add('to-do-item__text_type_complete');
+  }
 }
 
-function addDataToLocalStorage(id) {
-  toDoItemsArr.push({ value: input.value, id });
+function addDataToLocalStorage() {
   localStorage.setItem('to-do-items', JSON.stringify(toDoItemsArr));
+}
+
+function saveData(id) {
+  toDoItemsArr.push({ value: input.value, id });
+  addDataToLocalStorage();
 }
 
 function clearInput() {
@@ -30,7 +38,7 @@ function createToDoItem() {
   const id = createId();
 
   addToDoItem(input.value, id);
-  addDataToLocalStorage(id);
+  saveData(id);
   clearInput();
 }
 
@@ -57,29 +65,36 @@ function deleteToDoItem(evt) {
     });
     
     toDoItem.remove();
-    localStorage.setItem('to-do-items', JSON.stringify(toDoItemsArr));
+    addDataToLocalStorage();
   }
+}
+
+function setComplete(element, value) {
+  toDoItemsArr.forEach(item => {
+    if (Number(element.id) === item.id) {
+      item.complete = value;
+    }
+  });
 }
 
 function completeToDoItem(evt) {
   const toDoItem = evt.target.parentNode;
+  const toDoText = evt.target.previousElementSibling;
 
   if (evt.target.classList.contains('to-do-item__button_type_complete')) {        
-    evt.target.previousElementSibling.classList.toggle('to-do-item__text_type_complete');
+    toDoText.classList.toggle('to-do-item__text_type_complete');
   }
 
-  toDoItemsArr.forEach(item => {
-    if (Number(toDoItem.id) === item.id) {
-      item.complete = true;                
-    }
-  });
+  toDoText.classList.contains('to-do-item__text_type_complete')
+    ? setComplete(toDoItem, true)
+    : setComplete(toDoItem, false);
 
-  console.log(toDoItemsArr);
+  addDataToLocalStorage();
 }
 
 function renderToDoItems() {
   toDoItemsArr.forEach(item => {
-    addToDoItem(item.value, item.id);
+    addToDoItem(item.value, item.id, item.complete);
   });
 }
 
