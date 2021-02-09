@@ -1,5 +1,5 @@
-const addBtn = document.querySelector('.form__button');
 const input = document.querySelector('.form__input');
+const addBtn = document.querySelector('.form__button');
 const toDoList = document.querySelector('.to-do__list');
 const toDoItemsArr = localStorage.getItem('to-do-items') ? JSON.parse(localStorage.getItem('to-do-items')) : [];
 
@@ -42,16 +42,16 @@ function createToDoItem() {
   clearInput();
 }
 
-function handleEnter(evt) {  
-  if (evt.key === 'Enter' && input.value) {
-    createToDoItem();
-  }  
-}
-
 function handleAddBtn() {  
   if (input.value) {
     createToDoItem();
   }   
+}
+
+function handleEnter(evt) {  
+  if (evt.key === 'Enter' && input.value) {
+    createToDoItem();
+  }  
 }
 
 function deleteToDoItem(evt) {
