@@ -85,6 +85,8 @@
   padding: 10px;
   box-sizing: border-box;
   font-size: 25px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .to-do-item__text_type_complete {
