@@ -23,7 +23,7 @@ const addDataToLocalStorage = () => {
 }
 
 const saveData = (id) => {
-  toDoItemsArr.push({ value: toDoInput.value, id });
+  toDoItemsArr.push({ value: toDoInput.value.trim(), id });
   addDataToLocalStorage();
 }
 
@@ -34,19 +34,19 @@ const clearInput = () => {
 const createToDoItem = () => {
   const id = Date.now();
 
-  addToDoItem(toDoInput.value, id);
+  addToDoItem(toDoInput.value.trim(), id);
   saveData(id);
   clearInput();
 }
 
 const handleAddBtn = () => {  
-  if (toDoInput.value) {
+  if (toDoInput.value.trim()) {
     createToDoItem();
   }   
 }
 
 const handleEnter = (evt) => {  
-  if (evt.key === 'Enter' && toDoInput.value) {
+  if (evt.key === 'Enter' && toDoInput.value.trim()) {
     createToDoItem();
   }  
 }
