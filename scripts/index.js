@@ -62,6 +62,16 @@ const deleteToDoItem = (evt) => {
   }
 }
 
+// const changeToDoItemsArr = (key, value) => {
+//   toDoItemsArr = toDoItemsArr.map(item => {
+//     if (Number(element.id) === item.id) {
+//       item.key = value;
+//     }
+
+//     return item;
+//   });
+// }
+
 const setComplete = (element, value) => {
   toDoItemsArr = toDoItemsArr.map(item => {
     if (Number(element.id) === item.id) {
@@ -85,6 +95,20 @@ const completeToDoItem = (evt) => {
   }  
 }
 
+const editToDoItem = (evt) => {
+  if (evt.target.classList.contains('to-do-item__text')) {
+    toDoItemsArr = toDoItemsArr.map(item => {
+      if (Number(evt.target.parentNode.id) === item.id) {
+        item.value = evt.target.textContent;
+      }
+
+      return item;
+    });
+    
+    addDataToLocalStorage();
+  }  
+}
+
 const renderToDoItems = () => {
   toDoItemsArr.forEach(item => {
     addToDoItem(item.value, item.id, item.complete);
@@ -96,4 +120,5 @@ document.addEventListener('click', deleteToDoItem);
 document.addEventListener('click', completeToDoItem);
 document.addEventListener('keydown', handleEnter);
 document.addEventListener('load', renderToDoItems());
+document.addEventListener('focusout', editToDoItem);
 toDoForm.addEventListener('submit', evt => evt.preventDefault());
