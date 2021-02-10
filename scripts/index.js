@@ -2,11 +2,7 @@ const toDoForm = document.forms.toDoForm;
 const toDoInput = document.querySelector('.form__input');
 const addBtn = document.querySelector('.form__button');
 const toDoList = document.querySelector('.to-do__list');
-const toDoItemsArr = localStorage.getItem('to-do-items') ? JSON.parse(localStorage.getItem('to-do-items')) : [];
-
-const createId = () => {
-  return Date.now();
-}
+let toDoItemsArr = localStorage.getItem('to-do-items') ? JSON.parse(localStorage.getItem('to-do-items')) : [];
 
 const addToDoItem = (value, id, complete) => {  
   const toDoItemTemplate = document.querySelector('#to-do-item-template').content;  
@@ -36,7 +32,7 @@ const clearInput = () => {
 }
 
 const createToDoItem = () => {
-  const id = createId();
+  const id = Date.now();
 
   addToDoItem(toDoInput.value, id);
   saveData(id);
@@ -59,11 +55,7 @@ const deleteToDoItem = (evt) => {
   if (evt.target.classList.contains('to-do-item__button_type_delete')) {
     const toDoItem = evt.target.parentNode;
 
-    toDoItemsArr.forEach((item, index, arr) => {
-      if (Number(toDoItem.id) === item.id) {
-        arr.splice(index, 1);                
-      }
-    });
+    toDoItemsArr = toDoItemsArr.filter(item => Number(toDoItem.id) !== item.id);
     
     toDoItem.remove();
     addDataToLocalStorage();
@@ -78,17 +70,17 @@ const setComplete = (element, value) => {
   });
 }
 
-const completeToDoItem = (evt) => {
-  const toDoItem = evt.target.parentNode;
-  const toDoText = evt.target.previousElementSibling;
+const completeToDoItem = (evt) => {  
+  if (evt.target.classList.contains('to-do-item__button_type_complete')) {    
+    const toDoItem = evt.target.parentNode;
+    const toDoText = evt.target.previousElementSibling;
 
-  if (evt.target.classList.contains('to-do-item__button_type_complete')) {        
     toDoText.classList.toggle('to-do-item__text_type_complete');
-  }
 
-  setComplete(toDoItem, toDoText.classList.contains('to-do-item__text_type_complete'));
+    setComplete(toDoItem, toDoText.classList.contains('to-do-item__text_type_complete'));
     
-  addDataToLocalStorage();
+    addDataToLocalStorage();
+  }  
 }
 
 const renderToDoItems = () => {
