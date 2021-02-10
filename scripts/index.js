@@ -51,12 +51,6 @@ const handleEnter = (evt) => {
   }  
 }
 
-const handleDeleteBtn = (evt) => {
-  if (evt.target.classList.contains('to-do-item__button_type_delete')) {
-    deleteToDoItem(evt);
-  }
-}
-
 const deleteToDoItem = (evt) => {
   const toDoItem = evt.target.parentNode;
 
@@ -65,6 +59,13 @@ const deleteToDoItem = (evt) => {
   toDoItem.remove();
   addDataToLocalStorage();
 }
+
+const handleDeleteBtn = (evt) => {
+  if (evt.target.classList.contains('to-do-item__button_type_delete')) {
+    deleteToDoItem(evt);
+  }
+}
+
 
 // const changeToDoItemsArr = (key, value) => {
 //   toDoItemsArr = toDoItemsArr.map(item => {
