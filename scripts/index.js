@@ -51,15 +51,19 @@ const handleEnter = (evt) => {
   }  
 }
 
-const deleteToDoItem = (evt) => {
+const handleDeleteBtn = (evt) => {
   if (evt.target.classList.contains('to-do-item__button_type_delete')) {
-    const toDoItem = evt.target.parentNode;
-
-    toDoItemsArr = toDoItemsArr.filter(item => Number(toDoItem.id) !== item.id);
-    
-    toDoItem.remove();
-    addDataToLocalStorage();
+    deleteToDoItem(evt);
   }
+}
+
+const deleteToDoItem = (evt) => {
+  const toDoItem = evt.target.parentNode;
+
+  toDoItemsArr = toDoItemsArr.filter(item => Number(toDoItem.id) !== item.id);
+  
+  toDoItem.remove();
+  addDataToLocalStorage();
 }
 
 // const changeToDoItemsArr = (key, value) => {
@@ -96,17 +100,21 @@ const completeToDoItem = (evt) => {
 }
 
 const editToDoItem = (evt) => {
-  if (evt.target.classList.contains('to-do-item__text')) {
-    toDoItemsArr = toDoItemsArr.map(item => {
-      if (Number(evt.target.parentNode.id) === item.id) {
-        item.value = evt.target.textContent;
-      }
+  if (evt.target.classList.contains('to-do-item__text')) {    
+    if (evt.target.textContent) {
+      toDoItemsArr = toDoItemsArr.map(item => {
+        if (Number(evt.target.parentNode.id) === item.id) {
+          item.value = evt.target.textContent;
+        }
 
-      return item;
-    });
+        return item;
+      });
     
-    addDataToLocalStorage();
-  }  
+      addDataToLocalStorage();
+    } else {
+      deleteToDoItem(evt);
+    }    
+  }
 }
 
 const renderToDoItems = () => {
@@ -116,7 +124,7 @@ const renderToDoItems = () => {
 }
 
 addBtn.addEventListener('click', handleAddBtn);
-document.addEventListener('click', deleteToDoItem);
+document.addEventListener('click', handleDeleteBtn);
 document.addEventListener('click', completeToDoItem);
 document.addEventListener('keydown', handleEnter);
 document.addEventListener('load', renderToDoItems());
