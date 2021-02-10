@@ -63,10 +63,12 @@ const deleteToDoItem = (evt) => {
 }
 
 const setComplete = (element, value) => {
-  toDoItemsArr.forEach(item => {
+  toDoItemsArr = toDoItemsArr.map(item => {
     if (Number(element.id) === item.id) {
       item.complete = value;
     }
+
+    return item;
   });
 }
 
