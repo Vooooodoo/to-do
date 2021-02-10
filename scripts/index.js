@@ -66,25 +66,18 @@ const handleDeleteBtn = (evt) => {
   }
 }
 
-
-// const changeToDoItemsArr = (key, value) => {
-//   toDoItemsArr = toDoItemsArr.map(item => {
-//     if (Number(element.id) === item.id) {
-//       item.key = value;
-//     }
-
-//     return item;
-//   });
-// }
-
-const setComplete = (element, value) => {
+const changeToDoItemsArr = (key, value, elementId) => {
   toDoItemsArr = toDoItemsArr.map(item => {
-    if (Number(element.id) === item.id) {
-      item.complete = value;
+    if (Number(elementId) === item.id) {
+      item[key] = value;
     }
 
     return item;
   });
+}
+
+const setComplete = (element, value) => {  
+  changeToDoItemsArr('complete', value, element.id)
 }
 
 const completeToDoItem = (evt) => {  
@@ -101,20 +94,27 @@ const completeToDoItem = (evt) => {
 }
 
 const editToDoItem = (evt) => {
-  if (evt.target.classList.contains('to-do-item__text')) {    
-    if (evt.target.textContent) {
-      toDoItemsArr = toDoItemsArr.map(item => {
-        if (Number(evt.target.parentNode.id) === item.id) {
-          item.value = evt.target.textContent;
-        }
+  if (evt.target.classList.contains('to-do-item__text')) {
+    const toDoItemText = evt.target.textContent.trim();
+    const toDoItemId = evt.target.parentNode.id;
 
-        return item;
-      });
-    
+    if (toDoItemText) {            
+      changeToDoItemsArr('value', toDoItemText.slice(0, 5), toDoItemId)
       addDataToLocalStorage();
+      evt.target.setAttribute('contenteditable', 'true');
     } else {
       deleteToDoItem(evt);
-    }    
+    }        
+  }
+}
+
+const checkTextLength = (evt) => {
+  if (evt.target.classList.contains('to-do-item__text')) {
+    if (evt.target.textContent.length > 5) {      
+      evt.target.setAttribute('contenteditable', 'false');
+      evt.target.textContent = evt.target.textContent.slice(0, 5);
+      alert('Ограничение в 5 символов. Пожалуйста сократите текст.');
+    }
   }
 }
 
@@ -128,6 +128,7 @@ addBtn.addEventListener('click', handleAddBtn);
 document.addEventListener('click', handleDeleteBtn);
 document.addEventListener('click', completeToDoItem);
 document.addEventListener('keydown', handleEnter);
+document.addEventListener('keydown', checkTextLength);
 document.addEventListener('load', renderToDoItems());
 document.addEventListener('focusout', editToDoItem);
 toDoForm.addEventListener('submit', evt => evt.preventDefault());
