@@ -1,4 +1,5 @@
-const input = document.querySelector('.form__input');
+const toDoForm = document.forms.toDoForm;
+const toDoInput = document.querySelector('.form__input');
 const addBtn = document.querySelector('.form__button');
 const toDoList = document.querySelector('.to-do__list');
 const toDoItemsArr = localStorage.getItem('to-do-items') ? JSON.parse(localStorage.getItem('to-do-items')) : [];
@@ -26,30 +27,30 @@ function addDataToLocalStorage() {
 }
 
 function saveData(id) {
-  toDoItemsArr.push({ value: input.value, id });
+  toDoItemsArr.push({ value: toDoInput.value, id });
   addDataToLocalStorage();
 }
 
 function clearInput() {
-  input.value = '';
+  toDoInput.value = '';
 }
 
 function createToDoItem() {
   const id = createId();
 
-  addToDoItem(input.value, id);
+  addToDoItem(toDoInput.value, id);
   saveData(id);
   clearInput();
 }
 
 function handleAddBtn() {  
-  if (input.value) {
+  if (toDoInput.value) {
     createToDoItem();
   }   
 }
 
 function handleEnter(evt) {  
-  if (evt.key === 'Enter' && input.value) {
+  if (evt.key === 'Enter' && toDoInput.value) {
     createToDoItem();
   }  
 }
@@ -85,10 +86,8 @@ function completeToDoItem(evt) {
     toDoText.classList.toggle('to-do-item__text_type_complete');
   }
 
-  toDoText.classList.contains('to-do-item__text_type_complete')
-    ? setComplete(toDoItem, true)
-    : setComplete(toDoItem, false);
-
+  setComplete(toDoItem, toDoText.classList.contains('to-do-item__text_type_complete'));
+    
   addDataToLocalStorage();
 }
 
@@ -103,4 +102,4 @@ document.addEventListener('click', deleteToDoItem);
 document.addEventListener('click', completeToDoItem);
 document.addEventListener('keydown', handleEnter);
 document.addEventListener('load', renderToDoItems());
-document.addEventListener('submit', evt => evt.preventDefault());
+toDoForm.addEventListener('submit', evt => evt.preventDefault());
