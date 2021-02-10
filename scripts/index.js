@@ -4,11 +4,11 @@ const addBtn = document.querySelector('.form__button');
 const toDoList = document.querySelector('.to-do__list');
 const toDoItemsArr = localStorage.getItem('to-do-items') ? JSON.parse(localStorage.getItem('to-do-items')) : [];
 
-function createId() {
+const createId = () => {
   return Date.now();
 }
 
-function addToDoItem(value, id, complete) {  
+const addToDoItem = (value, id, complete) => {  
   const toDoItemTemplate = document.querySelector('#to-do-item-template').content;  
   const toDoItem = toDoItemTemplate.querySelector('.to-do-item').cloneNode(true);
   const toDoText = toDoItem.querySelector('.to-do-item__text');
@@ -22,20 +22,20 @@ function addToDoItem(value, id, complete) {
   }
 }
 
-function addDataToLocalStorage() {
+const addDataToLocalStorage = () => {
   localStorage.setItem('to-do-items', JSON.stringify(toDoItemsArr));
 }
 
-function saveData(id) {
+const saveData = (id) => {
   toDoItemsArr.push({ value: toDoInput.value, id });
   addDataToLocalStorage();
 }
 
-function clearInput() {
+const clearInput = () => {
   toDoInput.value = '';
 }
 
-function createToDoItem() {
+const createToDoItem = () => {
   const id = createId();
 
   addToDoItem(toDoInput.value, id);
@@ -43,19 +43,19 @@ function createToDoItem() {
   clearInput();
 }
 
-function handleAddBtn() {  
+const handleAddBtn = () => {  
   if (toDoInput.value) {
     createToDoItem();
   }   
 }
 
-function handleEnter(evt) {  
+const handleEnter = (evt) => {  
   if (evt.key === 'Enter' && toDoInput.value) {
     createToDoItem();
   }  
 }
 
-function deleteToDoItem(evt) {
+const deleteToDoItem = (evt) => {
   if (evt.target.classList.contains('to-do-item__button_type_delete')) {
     const toDoItem = evt.target.parentNode;
 
@@ -70,7 +70,7 @@ function deleteToDoItem(evt) {
   }
 }
 
-function setComplete(element, value) {
+const setComplete = (element, value) => {
   toDoItemsArr.forEach(item => {
     if (Number(element.id) === item.id) {
       item.complete = value;
@@ -78,7 +78,7 @@ function setComplete(element, value) {
   });
 }
 
-function completeToDoItem(evt) {
+const completeToDoItem = (evt) => {
   const toDoItem = evt.target.parentNode;
   const toDoText = evt.target.previousElementSibling;
 
@@ -91,7 +91,7 @@ function completeToDoItem(evt) {
   addDataToLocalStorage();
 }
 
-function renderToDoItems() {
+const renderToDoItems = () => {
   toDoItemsArr.forEach(item => {
     addToDoItem(item.value, item.id, item.complete);
   });
