@@ -3,6 +3,7 @@ const toDoInput = document.querySelector('.form__input');
 const addBtn = document.querySelector('.form__button');
 const toDoList = document.querySelector('.to-do__list');
 let toDoItemsArr = localStorage.getItem('to-do-items') ? JSON.parse(localStorage.getItem('to-do-items')) : [];
+const MAX_LENGTH = 10; // переменная, которую не следует менять
 
 const addToDoItem = (value, id, complete) => {  
   const toDoItemTemplate = document.querySelector('#to-do-item-template').content;  
@@ -99,7 +100,7 @@ const editToDoItem = (evt) => {
     const toDoItemId = evt.target.parentNode.id;
 
     if (toDoItemText) {            
-      changeToDoItemsArr('value', toDoItemText.slice(0, 5), toDoItemId)
+      changeToDoItemsArr('value', toDoItemText.slice(0, MAX_LENGTH), toDoItemId);
       addDataToLocalStorage();
       evt.target.setAttribute('contenteditable', 'true');
     } else {
@@ -109,10 +110,10 @@ const editToDoItem = (evt) => {
 }
 
 const checkTextLength = (evt) => {
-  if (evt.target.classList.contains('to-do-item__text') && evt.target.textContent.length > 5) {    
+  if (evt.target.classList.contains('to-do-item__text') && evt.target.textContent.length > MAX_LENGTH) {    
     evt.target.setAttribute('contenteditable', 'false');
-    evt.target.textContent = evt.target.textContent.slice(0, 5);
-    alert('Ограничение в 5 символов. Пожалуйста сократите текст.');
+    evt.target.textContent = evt.target.textContent.slice(0, MAX_LENGTH);
+    alert(`Ограничение в ${MAX_LENGTH} символов. Пожалуйста сократите текст.`);
   }
 }
 
@@ -127,6 +128,6 @@ document.addEventListener('click', handleDeleteBtn);
 document.addEventListener('click', completeToDoItem);
 document.addEventListener('keydown', handleEnter);
 document.addEventListener('keydown', checkTextLength);
-document.addEventListener('load', renderToDoItems());
+document.addEventListener('DOMContentLoaded', renderToDoItems);
 document.addEventListener('focusout', editToDoItem);
 toDoForm.addEventListener('submit', evt => evt.preventDefault());
