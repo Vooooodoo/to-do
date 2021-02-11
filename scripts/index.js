@@ -109,12 +109,10 @@ const editToDoItem = (evt) => {
 }
 
 const checkTextLength = (evt) => {
-  if (evt.target.classList.contains('to-do-item__text')) {
-    if (evt.target.textContent.length > 5) {      
-      evt.target.setAttribute('contenteditable', 'false');
-      evt.target.textContent = evt.target.textContent.slice(0, 5);
-      alert('Ограничение в 5 символов. Пожалуйста сократите текст.');
-    }
+  if (evt.target.classList.contains('to-do-item__text') && evt.target.textContent.length > 5) {    
+    evt.target.setAttribute('contenteditable', 'false');
+    evt.target.textContent = evt.target.textContent.slice(0, 5);
+    alert('Ограничение в 5 символов. Пожалуйста сократите текст.');
   }
 }
 
