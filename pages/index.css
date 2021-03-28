@@ -1,7 +1,5 @@
 @import url(../vendor/normalize.css);
 @import url(../vendor/fonts/fonts.css);
-@import url(../blocks/page/page.css);
-@import url(../blocks/root/root.css);
 
 .page {
   background-color: #2A2C2F;
@@ -28,7 +26,7 @@
   display: flex;
   max-width: 500px;
   margin: 0 auto 30px;
-  height: 50px;
+  min-height: 50px;
   justify-content: center;
 }
 
@@ -38,7 +36,6 @@
   border: none;  
   border-radius: 5px;
   padding: 0 10px;
-  line-height: 0;
 }
 
 .form__button {
@@ -56,9 +53,74 @@
   opacity: .8;
 }
 
-.footer {
+.to-do {
   max-width: 500px;
   margin: 0 auto;
+}
+
+.to-do__list {
+  padding: 0;
+  list-style: none;
+  margin: 0 0 10px;
+}
+
+.to-do-item {
+  max-width: 348px;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto 10px;
+}
+
+.to-do-item:last-of-type {
+  margin-bottom: 0;
+}
+
+.to-do-item__text {
+  color: black;
+  min-height: 50px;
+  width: 240px;
+  background-color: white;
+  border-radius: 5px;
+  margin: 0;
+  padding: 10px;
+  box-sizing: border-box;
+  font-size: 25px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.to-do-item__text_type_complete {
+  text-decoration: line-through;
+}
+
+.to-do-item__button {
+  width: 50px;
+  height: 50px;
+  border: none;
+  padding: 1px 0 0 ;
+  margin: 0;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: .2s linear;
+  text-transform: uppercase;
+  font-size: 30px;
+}
+
+.to-do-item__button_type_complete {
+  background-color: #14af42;
+}
+
+.to-do-item__button_type_delete {
+  background-color: #af1045;
+}
+
+.to-do-item__button:hover {
+  opacity: .8;
+}
+
+.footer {
+  max-width: 500px;
+  margin: 30px auto 0;
 }
 
 .footer__title {
@@ -80,5 +142,13 @@
 @media all and (max-width: 424px) {
   .form__input {    
     width: 170px;
+  }
+  
+  .to-do-item {
+    max-width: 298px;
+  }
+
+  .to-do-item__text {
+    width: 190px;
   }
 }

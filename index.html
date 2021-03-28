@@ -7,7 +7,7 @@
     <meta name="keywords" content="приложение, сделать, дела, список дел">
     <meta name="author" content="Андруханенко Роман">
     <link rel="stylesheet" href="./pages/index.css">
-    <title>To do list</title>
+    <title lang="en">To do list</title>
   </head>
   <body class="page">    
     <header class="header">
@@ -16,13 +16,16 @@
 
     <main>
       <section class="form">
-        <form>
-          <input class="form__input" type="text" minlength="2" maxlength="40" required>
-          <button class="form__button" type="button">сохранить</button>
+        <form name="toDoForm">
+          <input class="form__input" type="text" maxlength="10">
+          <button class="form__button" type="button">добавить</button>
         </form>
       </section>
 
-      <section class="to-do-list">
+      <section class="to-do">
+        <ul class="to-do__list">
+          <!-- интерактивный список -->
+        </ul>
       </section>
     </main>
 
@@ -30,8 +33,15 @@
       <h2 class="footer__title">Андруханенко Роман</h2>
       <p class="footer__text">(с) 2021. Все права защищены.</p>
     </footer>
-    
 
+    <template id="to-do-item-template">
+      <li class="to-do-item">
+        <p class="to-do-item__text" contenteditable="true"></p>        
+        <button class="to-do-item__button to-do-item__button_type_complete" type="button" aria-label="Завершить дело.">V</button>
+        <button class="to-do-item__button to-do-item__button_type_delete" type="button" aria-label="Удалить дело.">X</button>
+      </li>
+    </template>
+    
     <script src="./scripts/index.js"></script>
   </body>
 </html>
